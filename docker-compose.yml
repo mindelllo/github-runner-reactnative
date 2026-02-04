@@ -1,0 +1,14 @@
+services:
+  runner:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      mode: replicated
+      replicas: ${GHA_REPLICAS:-1}
+      resources:
+        reservations:
+          cpus: 1
+          memory: 2048M
